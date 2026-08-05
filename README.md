@@ -13,9 +13,7 @@
 25
 )
 
-Subject
-Clarification on Production Environment Behavior
-Hi Team,
-I recently received the update regarding the "Fix logout with platform lock" issue.
+We recently received the FIX Logout message with text "System is not open for business" while we were connected to the SEP Market Taker API.
+Immediately after try to reconnect by sending the FIX Logon message - we were receiving Logout with text "Platform is locked for external users"
 Could you please clarify whether the same behavior or situation is expected in the production environment as well? I would like to confirm if this fix applies to production in the same way or if there are any differences we should be aware of.
 Thank you for your clarification.
