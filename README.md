@@ -24,3 +24,24 @@ rsaCipher PARAMETERS: MD: SHA-256
 		}
 		return null;
 	}
+
+
+OAEPParameterSpec oaepParams = new OAEPParameterSpec(
+    "SHA-256",
+    "MGF1",
+    MGF1ParameterSpec.SHA256,
+    PSource.PSpecified.DEFAULT
+);
+
+Cipher rsaCipher = Cipher.getInstance("RSA/ECB/OAEPPadding");
+
+rsaCipher.init(
+    Cipher.DECRYPT_MODE,
+    serverPrivateKey,
+    oaepParams
+);
+
+byte[] encrypted = publicKey.Encrypt(
+    aesKeyBytes,
+    RSAEncryptionPadding.OaepSHA256
+);
