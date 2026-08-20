@@ -45,3 +45,25 @@ byte[] encrypted = publicKey.Encrypt(
     aesKeyBytes,
     RSAEncryptionPadding.OaepSHA256
 );
+
+Asymmetric Encryption Specification
+Parameter
+Value
+Algorithm
+RSA
+Encryption Scheme
+RSA-OAEP
+OAEP Digest
+SHA-256
+Mask Generation Function
+MGF1
+MGF1 Digest
+SHA-256
+OAEP Label
+Empty / Default
+RSA Key
+RSA public key from X.509 certificate
+Purpose
+Encryption of AES symmetric key
+Complete specification:
+RSA-OAEP encryption with SHA-256 as the OAEP digest, MGF1 using SHA-256 as the MGF1 digest, and an empty OAEP label.
