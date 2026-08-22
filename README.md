@@ -21,13 +21,6 @@ public class SettlementDateService {
 
     /**
      * Calculates near-leg and far-leg settlement dates.
-     *
-     * @param currency1       First currency
-     * @param currency2       Second currency
-     * @param transactionDate Transaction date T
-     * @param nearLegDays     Near leg days
-     * @param farLegDays      Far leg days
-     * @return SettlementDates containing near and far settlement dates
      */
     public SettlementDates calculateSettlementDates(
             String currency1,
@@ -52,11 +45,22 @@ public class SettlementDateService {
         }
 
         // ---------------------------------------------------------
-        // Near Leg
+        // 1. First find the valid transaction/base date
+        // ---------------------------------------------------------
+
+        LocalDate validTransactionDate =
+                getNextValidSettlementDate(
+                        currency1,
+                        currency2,
+                        transactionDate
+                );
+
+        // ---------------------------------------------------------
+        // 2. Near Leg
         // ---------------------------------------------------------
 
         LocalDate nearLegCandidate =
-                transactionDate.plusDays(nearLegDays);
+                validTransactionDate.plusDays(nearLegDays);
 
         LocalDate nearLegSettlementDate =
                 getNextValidSettlementDate(
@@ -66,11 +70,11 @@ public class SettlementDateService {
                 );
 
         // ---------------------------------------------------------
-        // Far Leg - Normal Calculation
+        // 3. Far Leg
         // ---------------------------------------------------------
 
         LocalDate farLegCandidate =
-                transactionDate.plusDays(farLegDays);
+                validTransactionDate.plusDays(farLegDays);
 
         LocalDate farLegSettlementDate =
                 getNextValidSettlementDate(
@@ -80,7 +84,7 @@ public class SettlementDateService {
                 );
 
         // ---------------------------------------------------------
-        // USD/INR Special Handling
+        // 4. USD/INR special handling
         // ---------------------------------------------------------
 
         if (isUsdInr(currency1, currency2)) {
@@ -95,9 +99,7 @@ public class SettlementDateService {
 
             /*
              * Check month-end.
-             *
-             * If it is a holiday, keep adding one day until
-             * transactionAllowed = true.
+             * If holiday, move to next day until valid.
              */
             farLegSettlementDate =
                     getNextValidSettlementDate(
@@ -114,10 +116,10 @@ public class SettlementDateService {
     }
 
     /**
-     * Starting from candidateDate, repeatedly calls the
+     * Starting from the supplied date, repeatedly calls the
      * third-party API until transactionAllowed = true.
      *
-     * There is intentionally NO maximum attempt limit.
+     * No maximum attempt limit.
      */
     private LocalDate getNextValidSettlementDate(
             String currency1,
@@ -144,7 +146,7 @@ public class SettlementDateService {
     }
 
     /**
-     * Calls the third-party holiday/calendar API.
+     * Calls the third-party holiday API.
      */
     private boolean checkTransactionAllowed(
             String currency1,
@@ -174,9 +176,6 @@ public class SettlementDateService {
         return response.isTransactionAllowed();
     }
 
-    /**
-     * Checks specifically for USD/INR.
-     */
     private boolean isUsdInr(
             String currency1,
             String currency2) {
