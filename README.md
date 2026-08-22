@@ -1,3 +1,36 @@
+
+Ceate a method in java.
+which will give me near leg settlement date and far leg settlement date in response.
+
+in method params i will provide -
+currency 1
+currency 2
+transaction Date T
+T + near leg days
+T + far leg days
+
+so you will have to call the below api for [T + near leg days] and [T + far leg days] seperatly 
+and repeatadely by adding 1 day in the date
+until it gets true in response for both the dates.
+and you can return me near leg settlement date and far leg settlement date.
+
+i have third party api, i will have to call this api to check the holidays
+which return transactionAllowed (true or false) - 
+request body of that api will contain -
+currency 1
+currency 2
+transaction Date T
+
+there will be an exception if currency 1 is USD and currency 2 is INR 
+what ever the far leg settlement date you calculate normally - 
+give me the month end date of that particular month 
+also check the holiday for that month date and give me next
+
+
+
+
+__________________________________________________________________________________________
+
 in response im not getting bid_swap and ask_swap for EUR/USD directly.
 im receiving following values
 
