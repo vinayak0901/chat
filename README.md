@@ -1,3 +1,306 @@
+package com.example.fx.service;
+
+import com.example.fx.dto.SettlementDates;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+
+@Service
+public class SettlementDateService {
+
+    private final RestTemplate restTemplate;
+
+    private final String holidayApiUrl =
+            "https://third-party-api.com/holiday/check";
+
+    public SettlementDateService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    /**
+     * Calculates near-leg and far-leg settlement dates.
+     *
+     * @param currency1       First currency
+     * @param currency2       Second currency
+     * @param transactionDate Transaction date T
+     * @param nearLegDays     Near leg days
+     * @param farLegDays      Far leg days
+     * @return SettlementDates containing near and far settlement dates
+     */
+    public SettlementDates calculateSettlementDates(
+            String currency1,
+            String currency2,
+            LocalDate transactionDate,
+            int nearLegDays,
+            int farLegDays) {
+
+        if (transactionDate == null) {
+            throw new IllegalArgumentException(
+                    "Transaction date cannot be null");
+        }
+
+        if (nearLegDays < 0) {
+            throw new IllegalArgumentException(
+                    "Near leg days cannot be negative");
+        }
+
+        if (farLegDays < 0) {
+            throw new IllegalArgumentException(
+                    "Far leg days cannot be negative");
+        }
+
+        // ---------------------------------------------------------
+        // Near Leg
+        // ---------------------------------------------------------
+
+        LocalDate nearLegCandidate =
+                transactionDate.plusDays(nearLegDays);
+
+        LocalDate nearLegSettlementDate =
+                getNextValidSettlementDate(
+                        currency1,
+                        currency2,
+                        nearLegCandidate
+                );
+
+        // ---------------------------------------------------------
+        // Far Leg - Normal Calculation
+        // ---------------------------------------------------------
+
+        LocalDate farLegCandidate =
+                transactionDate.plusDays(farLegDays);
+
+        LocalDate farLegSettlementDate =
+                getNextValidSettlementDate(
+                        currency1,
+                        currency2,
+                        farLegCandidate
+                );
+
+        // ---------------------------------------------------------
+        // USD/INR Special Handling
+        // ---------------------------------------------------------
+
+        if (isUsdInr(currency1, currency2)) {
+
+            /*
+             * Take the last day of the month in which the
+             * normally calculated far-leg date falls.
+             */
+            LocalDate monthEnd =
+                    farLegSettlementDate
+                            .with(TemporalAdjusters.lastDayOfMonth());
+
+            /*
+             * Check month-end.
+             *
+             * If it is a holiday, keep adding one day until
+             * transactionAllowed = true.
+             */
+            farLegSettlementDate =
+                    getNextValidSettlementDate(
+                            currency1,
+                            currency2,
+                            monthEnd
+                    );
+        }
+
+        return new SettlementDates(
+                nearLegSettlementDate,
+                farLegSettlementDate
+        );
+    }
+
+    /**
+     * Starting from candidateDate, repeatedly calls the
+     * third-party API until transactionAllowed = true.
+     *
+     * There is intentionally NO maximum attempt limit.
+     */
+    private LocalDate getNextValidSettlementDate(
+            String currency1,
+            String currency2,
+            LocalDate candidateDate) {
+
+        LocalDate date = candidateDate;
+
+        while (true) {
+
+            boolean transactionAllowed =
+                    checkTransactionAllowed(
+                            currency1,
+                            currency2,
+                            date
+                    );
+
+            if (transactionAllowed) {
+                return date;
+            }
+
+            date = date.plusDays(1);
+        }
+    }
+
+    /**
+     * Calls the third-party holiday/calendar API.
+     */
+    private boolean checkTransactionAllowed(
+            String currency1,
+            String currency2,
+            LocalDate transactionDate) {
+
+        HolidayCheckRequest request =
+                new HolidayCheckRequest(
+                        currency1,
+                        currency2,
+                        transactionDate
+                );
+
+        HolidayCheckResponse response =
+                restTemplate.postForObject(
+                        holidayApiUrl,
+                        request,
+                        HolidayCheckResponse.class
+                );
+
+        if (response == null) {
+            throw new IllegalStateException(
+                    "Empty response received from holiday API"
+            );
+        }
+
+        return response.isTransactionAllowed();
+    }
+
+    /**
+     * Checks specifically for USD/INR.
+     */
+    private boolean isUsdInr(
+            String currency1,
+            String currency2) {
+
+        return "USD".equalsIgnoreCase(currency1)
+                && "INR".equalsIgnoreCase(currency2);
+    }
+}
+
+_______________
+package com.example.fx.service;
+
+import java.time.LocalDate;
+
+public class HolidayCheckRequest {
+
+    private String currency1;
+    private String currency2;
+    private LocalDate transactionDate;
+
+    public HolidayCheckRequest() {
+    }
+
+    public HolidayCheckRequest(
+            String currency1,
+            String currency2,
+            LocalDate transactionDate) {
+
+        this.currency1 = currency1;
+        this.currency2 = currency2;
+        this.transactionDate = transactionDate;
+    }
+
+    public String getCurrency1() {
+        return currency1;
+    }
+
+    public void setCurrency1(String currency1) {
+        this.currency1 = currency1;
+    }
+
+    public String getCurrency2() {
+        return currency2;
+    }
+
+    public void setCurrency2(String currency2) {
+        this.currency2 = currency2;
+    }
+
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDate transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+}
+_____________
+package com.example.fx.service;
+
+public class HolidayCheckResponse {
+
+    private boolean transactionAllowed;
+
+    public HolidayCheckResponse() {
+    }
+
+    public boolean isTransactionAllowed() {
+        return transactionAllowed;
+    }
+
+    public void setTransactionAllowed(
+            boolean transactionAllowed) {
+
+        this.transactionAllowed = transactionAllowed;
+    }
+}
+_______________
+package com.example.fx.dto;
+
+import java.time.LocalDate;
+
+public class SettlementDates {
+
+    private final LocalDate nearLegSettlementDate;
+    private final LocalDate farLegSettlementDate;
+
+    public SettlementDates(
+            LocalDate nearLegSettlementDate,
+            LocalDate farLegSettlementDate) {
+
+        this.nearLegSettlementDate =
+                nearLegSettlementDate;
+
+        this.farLegSettlementDate =
+                farLegSettlementDate;
+    }
+
+    public LocalDate getNearLegSettlementDate() {
+        return nearLegSettlementDate;
+    }
+
+    public LocalDate getFarLegSettlementDate() {
+        return farLegSettlementDate;
+    }
+}
+________________
+
+package com.example.fx.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+@Configuration
+public class RestTemplateConfig {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+__________________
+
 
 Ceate a method in java.
 which will give me near leg settlement date and far leg settlement date in response.
