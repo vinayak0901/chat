@@ -19,9 +19,6 @@ public class SettlementDateService {
         this.restTemplate = restTemplate;
     }
 
-    /**
-     * Calculates near-leg and far-leg settlement dates.
-     */
     public SettlementDates calculateSettlementDates(
             String currency1,
             String currency2,
@@ -45,11 +42,11 @@ public class SettlementDateService {
         }
 
         // ---------------------------------------------------------
-        // 1. First find the valid transaction/base date
+        // 1. Find first valid transaction date
         // ---------------------------------------------------------
 
         LocalDate validTransactionDate =
-                getNextValidSettlementDate(
+                getNextValidDate(
                         currency1,
                         currency2,
                         transactionDate
@@ -59,28 +56,24 @@ public class SettlementDateService {
         // 2. Near Leg
         // ---------------------------------------------------------
 
-        LocalDate nearLegCandidate =
-                validTransactionDate.plusDays(nearLegDays);
-
         LocalDate nearLegSettlementDate =
-                getNextValidSettlementDate(
+                addValidDays(
                         currency1,
                         currency2,
-                        nearLegCandidate
+                        validTransactionDate,
+                        nearLegDays
                 );
 
         // ---------------------------------------------------------
         // 3. Far Leg
         // ---------------------------------------------------------
 
-        LocalDate farLegCandidate =
-                validTransactionDate.plusDays(farLegDays);
-
         LocalDate farLegSettlementDate =
-                getNextValidSettlementDate(
+                addValidDays(
                         currency1,
                         currency2,
-                        farLegCandidate
+                        validTransactionDate,
+                        farLegDays
                 );
 
         // ---------------------------------------------------------
@@ -90,19 +83,19 @@ public class SettlementDateService {
         if (isUsdInr(currency1, currency2)) {
 
             /*
-             * Take the last day of the month in which the
-             * normally calculated far-leg date falls.
+             * Take month-end of the normally calculated
+             * far-leg settlement date.
              */
             LocalDate monthEnd =
                     farLegSettlementDate
                             .with(TemporalAdjusters.lastDayOfMonth());
 
             /*
-             * Check month-end.
-             * If holiday, move to next day until valid.
+             * If month-end is holiday, move to the next
+             * valid transaction date.
              */
             farLegSettlementDate =
-                    getNextValidSettlementDate(
+                    getNextValidDate(
                             currency1,
                             currency2,
                             monthEnd
@@ -116,12 +109,57 @@ public class SettlementDateService {
     }
 
     /**
-     * Starting from the supplied date, repeatedly calls the
-     * third-party API until transactionAllowed = true.
+     * Adds the specified number of VALID transaction days.
      *
-     * No maximum attempt limit.
+     * Example:
+     *
+     * Start date = 9
+     * Days to add = 2
+     *
+     * 10 -> false
+     * 11 -> false
+     * 12 -> false
+     * 13 -> true  (day 1)
+     * 14 -> true  (day 2)
+     *
+     * Result = 14
      */
-    private LocalDate getNextValidSettlementDate(
+    private LocalDate addValidDays(
+            String currency1,
+            String currency2,
+            LocalDate startDate,
+            int daysToAdd) {
+
+        LocalDate date = startDate;
+        int validDaysAdded = 0;
+
+        while (validDaysAdded < daysToAdd) {
+
+            // Move to the next calendar day first.
+            date = date.plusDays(1);
+
+            boolean transactionAllowed =
+                    checkTransactionAllowed(
+                            currency1,
+                            currency2,
+                            date
+                    );
+
+            if (transactionAllowed) {
+                validDaysAdded++;
+            }
+        }
+
+        return date;
+    }
+
+    /**
+     * Finds the first valid transaction date starting from
+     * candidateDate.
+     *
+     * The candidate date itself is checked first.
+     */
+    private LocalDate getNextValidDate(
             String currency1,
             String currency2,
             LocalDate candidateDate) {
