@@ -1,5 +1,7 @@
 package com.example.fx.service;
 
+import com.example.fx.dto.DateCalculationType;
+import com.example.fx.dto.LegDateRule;
 import com.example.fx.dto.SettlementDates;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,30 +21,39 @@ public class SettlementDateService {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Calculates near-leg and far-leg settlement dates.
+     *
+     * @param currency1
+     * @param currency2
+     * @param transactionDate Transaction date T
+     * @param nearLeg         Near-leg date calculation rule
+     * @param farLeg          Far-leg date calculation rule
+     */
     public SettlementDates calculateSettlementDates(
             String currency1,
             String currency2,
             LocalDate transactionDate,
-            int nearLegDays,
-            int farLegDays) {
+            LegDateRule nearLeg,
+            LegDateRule farLeg) {
 
         if (transactionDate == null) {
             throw new IllegalArgumentException(
                     "Transaction date cannot be null");
         }
 
-        if (nearLegDays < 0) {
+        if (nearLeg == null) {
             throw new IllegalArgumentException(
-                    "Near leg days cannot be negative");
+                    "Near leg rule cannot be null");
         }
 
-        if (farLegDays < 0) {
+        if (farLeg == null) {
             throw new IllegalArgumentException(
-                    "Far leg days cannot be negative");
+                    "Far leg rule cannot be null");
         }
 
         // ---------------------------------------------------------
-        // 1. Find first valid transaction date
+        // 1. Find the first valid transaction date
         // ---------------------------------------------------------
 
         LocalDate validTransactionDate =
@@ -53,27 +64,46 @@ public class SettlementDateService {
                 );
 
         // ---------------------------------------------------------
-        // 2. Near Leg
+        // 2. Calculate Near Leg
         // ---------------------------------------------------------
 
         LocalDate nearLegSettlementDate =
-                addValidDays(
+                calculateLegDate(
                         currency1,
                         currency2,
                         validTransactionDate,
-                        nearLegDays
+                        nearLeg
                 );
 
         // ---------------------------------------------------------
-        // 3. Far Leg
+        // 3. Calculate Far Leg
         // ---------------------------------------------------------
 
+        /*
+         * CALENDAR_DAYS_ROLL / Forward calculation is based
+         * on the NEAR LEG settlement date.
+         *
+         * BUSINESS_DAYS calculation is based on the valid
+         * transaction date.
+         */
+        LocalDate farLegStartDate;
+
+        if (farLeg.getType()
+                == DateCalculationType.CALENDAR_DAYS_ROLL) {
+
+            farLegStartDate = nearLegSettlementDate;
+
+        } else {
+
+            farLegStartDate = validTransactionDate;
+        }
+
         LocalDate farLegSettlementDate =
-                addValidDays(
+                calculateLegDate(
                         currency1,
                         currency2,
-                        validTransactionDate,
-                        farLegDays
+                        farLegStartDate,
+                        farLeg
                 );
 
         // ---------------------------------------------------------
@@ -83,16 +113,19 @@ public class SettlementDateService {
         if (isUsdInr(currency1, currency2)) {
 
             /*
-             * Take month-end of the normally calculated
-             * far-leg settlement date.
+             * Take the last day of the month in which the
+             * calculated far-leg date falls.
              */
             LocalDate monthEnd =
                     farLegSettlementDate
-                            .with(TemporalAdjusters.lastDayOfMonth());
+                            .with(
+                                    TemporalAdjusters
+                                            .lastDayOfMonth()
+                            );
 
             /*
-             * If month-end is holiday, move to the next
-             * valid transaction date.
+             * If month-end is not allowed, move forward
+             * until transactionAllowed = true.
              */
             farLegSettlementDate =
                     getNextValidDate(
@@ -109,33 +142,79 @@ public class SettlementDateService {
     }
 
     /**
-     * Adds the specified number of VALID transaction days.
+     * Calculates a leg date based on the requested rule.
+     */
+    private LocalDate calculateLegDate(
+            String currency1,
+            String currency2,
+            LocalDate startDate,
+            LegDateRule legRule) {
+
+        DateCalculationType type =
+                legRule.getType();
+
+        int days =
+                legRule.getDays();
+
+        switch (type) {
+
+            case BUSINESS_DAYS:
+
+                return addBusinessDays(
+                        currency1,
+                        currency2,
+                        startDate,
+                        days
+                );
+
+            case CALENDAR_DAYS_ROLL:
+
+                return addCalendarDaysAndRoll(
+                        currency1,
+                        currency2,
+                        startDate,
+                        days
+                );
+
+            default:
+
+                throw new IllegalArgumentException(
+                        "Unsupported date calculation type: "
+                                + type
+                );
+        }
+    }
+
+    /**
+     * BUSINESS_DAYS calculation.
+     *
+     * Only dates where transactionAllowed = true
+     * are counted.
      *
      * Example:
      *
-     * Start date = 9
-     * Days to add = 2
+     * Start = 9
+     * Days = 2
      *
      * 10 -> false
      * 11 -> false
-     * 12 -> false
-     * 13 -> true  (day 1)
-     * 14 -> true  (day 2)
+     * 12 -> true  = day 1
+     * 13 -> true  = day 2
      *
-     * Result = 14
+     * Result = 13
      */
-    private LocalDate addValidDays(
+    private LocalDate addBusinessDays(
             String currency1,
             String currency2,
             LocalDate startDate,
             int daysToAdd) {
 
         LocalDate date = startDate;
+
         int validDaysAdded = 0;
 
         while (validDaysAdded < daysToAdd) {
 
-            // Move to the next calendar day first.
             date = date.plusDays(1);
 
             boolean transactionAllowed =
@@ -154,8 +233,45 @@ public class SettlementDateService {
     }
 
     /**
-     * Finds the first valid transaction date starting from
-     * candidateDate.
+     * CALENDAR_DAYS_ROLL calculation.
+     *
+     * First add the specified number of calendar days.
+     * Then check the resulting date.
+     *
+     * If it is not allowed, move forward one day at a time
+     * until transactionAllowed = true.
+     *
+     * Example:
+     *
+     * Start = 9
+     * Days = 2
+     *
+     * 9 + 2 = 11
+     *
+     * 11 -> false
+     * 12 -> false
+     * 13 -> true
+     *
+     * Result = 13
+     */
+    private LocalDate addCalendarDaysAndRoll(
+            String currency1,
+            String currency2,
+            LocalDate startDate,
+            int daysToAdd) {
+
+        LocalDate date =
+                startDate.plusDays(daysToAdd);
+
+        return getNextValidDate(
+                currency1,
+                currency2,
+                date
+        );
+    }
+
+    /**
+     * Finds the first valid date starting from candidateDate.
      *
      * The candidate date itself is checked first.
      */
@@ -221,6 +337,82 @@ public class SettlementDateService {
         return "USD".equalsIgnoreCase(currency1)
                 && "INR".equalsIgnoreCase(currency2);
     }
+}
+
+__________________
+
+package com.example.fx.dto;
+
+public class LegDateRule {
+
+    private final int days;
+    private final DateCalculationType type;
+
+    public LegDateRule(
+            int days,
+            DateCalculationType type) {
+
+        if (days < 0) {
+            throw new IllegalArgumentException(
+                    "Days cannot be negative");
+        }
+
+        if (type == null) {
+            throw new IllegalArgumentException(
+                    "Date calculation type cannot be null");
+        }
+
+        this.days = days;
+        this.type = type;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public DateCalculationType getType() {
+        return type;
+    }
+}
+
+_______________
+
+package com.example.fx.dto;
+
+public enum DateCalculationType {
+
+    /**
+     * Only valid transaction dates are counted.
+     *
+     * Example:
+     * Start = 9
+     * Days = 2
+     *
+     * 10 = false
+     * 11 = false
+     * 12 = true   -> day 1
+     * 13 = true   -> day 2
+     *
+     * Result = 13
+     */
+    BUSINESS_DAYS,
+
+    /**
+     * Add calendar days first, then check the resulting date.
+     * If the resulting date is invalid, move forward one day
+     * at a time until a valid date is found.
+     *
+     * Example:
+     * Start = 9
+     * Days = 2
+     *
+     * 11 = false
+     * 12 = false
+     * 13 = true
+     *
+     * Result = 13
+     */
+    CALENDAR_DAYS_ROLL
 }
 
 _______________
