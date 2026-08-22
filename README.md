@@ -1,3 +1,32 @@
+in response im not getting bid_swap and ask_swap for EUR/USD directly.
+im receiving following values
+
+SWM_BIDPX
+SWM_BIDPX2
+SWM_BIDSPOTRATE
+SWM_MIDPX
+SWM_MIDPX2
+SWM_MIDSPOTRATE
+SWM_OFFERPX
+SWM_OFFERPX2
+SWM_OFFERSPOTRATE
+
+0.0062939	
+0.00629347	
+0.0062939
+0.0062937	
+0.00629368	
+0.0062937
+0.0062935	
+0.0062939	
+0.0062935
+
+how can i calculate the bid_swap and ask_swap?
+
+
+
+________________________________________________________
+
 FIX protocol.
 I am sending a QuoteRequest[R] for Swap Points to be used 
 in calculating FX rates for TD, TM, SP, Forward
