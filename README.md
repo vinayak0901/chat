@@ -1,3 +1,33 @@
+package com.example.service;
+
+import org.springframework.stereotype.Component;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Component
+public class DynamicSetManager {
+
+    // Thread-safe set designed for concurrent reads/writes
+    private final Set<String> sharedSet = ConcurrentHashMap.newKeySet();
+
+    public boolean add(String item) {
+        return sharedSet.add(item);
+    }
+
+    public boolean remove(String item) {
+        return sharedSet.remove(item);
+    }
+
+    public boolean contains(String item) {
+        return sharedSet.contains(item);
+    }
+
+    public Set<String> getAll() {
+        return Set.copyOf(sharedSet); // Returns a read-only snapshot
+    }
+}
+____________
+
 package com.example.fx.service;
 
 import com.example.fx.dto.DateCalculationType;
