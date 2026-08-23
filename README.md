@@ -1,3 +1,20 @@
+public Quote getBestQuote(String quoteRequestId) {
+
+    List<Quote> quotes = quoteMap.get(quoteRequestId);
+
+    if (quotes == null || quotes.isEmpty()) {
+        return null;
+    }
+
+    return quotes.stream()
+            .max(Comparator.comparing(Quote::getBidPx)
+                    .thenComparing(Quote::getOfferPx))
+            .orElse(null);
+}
+
+__________
+
+
 package com.example.service;
 
 import org.springframework.stereotype.Component;
