@@ -1,14 +1,28 @@
-public Quote getBestQuote(String quoteRequestId) {
+private BigDecimal getBidPx(Message message) {
+    return new BigDecimal(
+            message.getString(BidPx.FIELD)
+    );
+}
 
-    List<Quote> quotes = quoteMap.get(quoteRequestId);
+private BigDecimal getOfferPx(Message message) {
+    return new BigDecimal(
+            message.getString(OfferPx.FIELD)
+    );
+}
+_____________
 
-    if (quotes == null || quotes.isEmpty()) {
+public Message getBestQuote(String quoteRequestId) {
+
+    List<Message> messages = quoteMap.get(quoteRequestId);
+
+    if (messages == null || messages.isEmpty()) {
         return null;
     }
 
-    return quotes.stream()
-            .max(Comparator.comparing(Quote::getBidPx)
-                    .thenComparing(Quote::getOfferPx))
+    return messages.stream()
+            .max(Comparator
+                    .comparing(this::getBidPx)
+                    .thenComparing(this::getOfferPx))
             .orElse(null);
 }
 
