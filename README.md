@@ -1,3 +1,69 @@
+public class RateAllowFlagManager {
+
+    private Map<String, String> previousConsumerState = new HashMap<>();
+    private Map<String, String> currentConsumerState = new HashMap<>();
+
+    private Map<String, String> previousMappingState = new HashMap<>();
+    private Map<String, String> currentMappingState = new HashMap<>();
+
+    private final BlockingQueue<Consumer> consumerQueue =
+            new LinkedBlockingQueue<>();
+
+    private final BlockingQueue<ConsumerCurrencyMapping> mappingQueue =
+            new LinkedBlockingQueue<>();
+
+    public void updateConsumers(List<Consumer> consumers) {
+
+        previousConsumerState = currentConsumerState;
+        currentConsumerState = new HashMap<>();
+
+        for (Consumer consumer : consumers) {
+
+            String key = consumer.getId();
+            String currentFlag = consumer.getRateAllowFlag();
+
+            currentConsumerState.put(key, currentFlag);
+
+            String previousFlag = previousConsumerState.get(key);
+
+            if ("Y".equals(previousFlag) && "N".equals(currentFlag)) {
+                consumerQueue.offer(consumer);
+            }
+        }
+    }
+
+    public void updateMappings(List<ConsumerCurrencyMapping> mappings) {
+
+        previousMappingState = currentMappingState;
+        currentMappingState = new HashMap<>();
+
+        for (ConsumerCurrencyMapping mapping : mappings) {
+
+            String key = mapping.getId();
+            String currentFlag = mapping.getRateAllowFlag();
+
+            currentMappingState.put(key, currentFlag);
+
+            String previousFlag = previousMappingState.get(key);
+
+            if ("Y".equals(previousFlag) && "N".equals(currentFlag)) {
+                mappingQueue.offer(mapping);
+            }
+        }
+    }
+
+    public Consumer takeConsumer() throws InterruptedException {
+        return consumerQueue.take();
+    }
+
+    public ConsumerCurrencyMapping takeMapping()
+            throws InterruptedException {
+        return mappingQueue.take();
+    }
+}
+
+_____________
+
 CREATE OR REPLACE TRIGGER TRG_TABLE1_AIU_SYNC_T2
 AFTER INSERT OR UPDATE ON TABLE1
 FOR EACH ROW
