@@ -1,3 +1,39 @@
+CREATE OR REPLACE TRIGGER TRG_TABLE1_AIU_SYNC_T2
+AFTER INSERT OR UPDATE ON TABLE1
+FOR EACH ROW
+BEGIN
+    MERGE INTO TABLE2 t2
+    USING (
+        SELECT
+            :NEW.id AS id,
+            :NEW.name AS name,
+            :NEW.some_column AS some_column
+        FROM dual
+    ) src
+    ON (
+        t2.id = src.id
+        AND t2.name = src.name
+    )
+    WHEN MATCHED THEN
+        UPDATE SET
+            t2.some_column = src.some_column
+    WHEN NOT MATCHED THEN
+        INSERT (
+            id,
+            name,
+            some_column
+        )
+        VALUES (
+            src.id,
+            src.name,
+            src.some_column
+        );
+END;
+/
+
+___________
+
+
 private BigDecimal getBidPx(Message message) {
     return new BigDecimal(
             message.getString(BidPx.FIELD)
