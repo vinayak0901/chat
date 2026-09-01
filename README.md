@@ -1,3 +1,34 @@
+import org.springframework.stereotype.Component;
+import quickfix.SessionID;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+@Component
+public class NewsMessageStatusManager {
+
+    private final ConcurrentMap<SessionID, Boolean> statusMap =
+            new ConcurrentHashMap<>();
+
+    public void initialize(SessionID sessionId) {
+        statusMap.put(sessionId, false);
+    }
+
+    public void markSent(SessionID sessionId) {
+        statusMap.put(sessionId, true);
+    }
+
+    public boolean isSent(SessionID sessionId) {
+        return statusMap.getOrDefault(sessionId, false);
+    }
+
+    public void reset(SessionID sessionId) {
+        statusMap.put(sessionId, false);
+    }
+}
+
+____________
+
 Subject: Approval for Waiver of Regression Testing – Demand ID 12344
 It is submitted that regression testing is not required for Demand ID 12344, as the demand pertains to a new application.
 Since this is a new application and does not involve changes to an existing application or its functionality, regression testing is not applicable in this case.
