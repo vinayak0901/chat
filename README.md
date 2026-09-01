@@ -1,3 +1,12 @@
+Subject: Approval for Waiver of Regression Testing – Demand ID 12344
+It is submitted that regression testing is not required for Demand ID 12344, as the demand pertains to a new application.
+Since this is a new application and does not involve changes to an existing application or its functionality, regression testing is not applicable in this case.
+Approval is kindly requested to waive the requirement of regression testing for Demand ID 12344 and proceed with the subsequent testing/deployment activities as applicable.
+Submitted for kind consideration and approval, please.
+
+___________
+
+
 public class RateAllowFlagManager {
 
     private Map<String, String> previousConsumerState = new HashMap<>();
