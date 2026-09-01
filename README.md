@@ -1,3 +1,12 @@
+Subject
+Approval for Revised Scope of Demand
+Dear Sir,
+This is to seek your approval for the revised scope of the demand.
+Based on the current project requirements, a few items initially included in the demand have been identified as out of scope for the current implementation and will be taken up separately, if required.
+Kindly review and provide your approval for the revised scope.
+________
+
+
 import org.springframework.stereotype.Component;
 import quickfix.SessionID;
 
