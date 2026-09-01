@@ -1,3 +1,26 @@
+@PreDestroy
+public void shutdown() {
+
+    for (SessionID sessionID : sessions.keySet()) {
+
+        Session session = Session.lookupSession(sessionID);
+
+        if (session != null && session.isLoggedOn()) {
+            session.logout("Application shutdown");
+        }
+    }
+
+    try {
+        Thread.sleep(1000); // allow Logout to be sent
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+    }
+
+    acceptor.stop();
+}
+
+_________
+
 Subject
 Approval for Revised Scope of Demand
 Dear Sir,
