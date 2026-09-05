@@ -1,3 +1,41 @@
+package com.example.config;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
+
+import jakarta.annotation.PostConstruct;
+
+@Component
+public class ServerInfo {
+
+    private static final String SERVER_IP = "serverIp";
+
+    private static String serverIp;
+
+    @PostConstruct
+    public void init() {
+        try {
+            serverIp = InetAddress.getLocalHost().getHostAddress();
+
+            // Store in MDC
+            MDC.put(SERVER_IP, serverIp);
+
+        } catch (UnknownHostException e) {
+            serverIp = "UNKNOWN";
+            MDC.put(SERVER_IP, serverIp);
+        }
+    }
+
+    public static String getServerIp() {
+        return serverIp;
+    }
+}
+
+___________
+
 logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss Z} [%X{clientIp}] [%X{user_info}] %-5level ${PID:-} --- [%15.15t] %-40.40logger{39} : %m%n
 
 ________
