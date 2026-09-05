@@ -1,3 +1,7 @@
+logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss Z} [%X{clientIp}] [%X{user_info}] %-5level ${PID:-} --- [%15.15t] %-40.40logger{39} : %m%n
+
+________
+
 @PreDestroy
 public void shutdown() {
 
