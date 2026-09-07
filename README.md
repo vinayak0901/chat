@@ -1,3 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- Custom server IP converter -->
+    <conversionRule conversionWord="serverIp"
+                    converterClass="com.yourpackage.logging.ServerIpConverter"/>
+
+    <!-- Common logging pattern -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss Z} [%serverIp] [%X{clientIp}] [%X{user_info}] %-5level ${PID:-} --- [%15.15t] %-40.40logger{39} : %m%n"/>
+
+    <!-- Console -->
+    <appender name="CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+    </appender>
+
+
+    <!-- File -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.FileAppender">
+
+        <file>${LOG_FILE:-application.log}</file>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+    </appender>
+
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
+
+
+__________________
 package com.example.config;
 
 import java.net.InetAddress;
