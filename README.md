@@ -1,3 +1,79 @@
+import org.springframework.stereotype.Service;
+import quickfix.Session;
+import quickfix.SessionID;
+import quickfix.field.SecurityReqID;
+import quickfix.field.SecurityRequestType;
+import quickfix.field.Symbol;
+import quickfix.fix44.SecurityDefinitionRequest;
+
+@Service
+public class SecurityDefinitionRequestService {
+
+    public void sendSecurityDefinitionRequests(
+            SessionID sessionID,
+            String requestId,
+            String symbols) throws Exception {
+
+        Session session = Session.lookupSession(sessionID);
+
+        if (session == null) {
+            throw new IllegalArgumentException(
+                    "QuickFIX session not found: " + sessionID);
+        }
+
+        if (!session.isEnabled()) {
+            throw new IllegalStateException(
+                    "QuickFIX session is not enabled: " + sessionID);
+        }
+
+        if (!session.isLoggedOn()) {
+            throw new IllegalStateException(
+                    "QuickFIX session is not logged on: " + sessionID);
+        }
+
+        if (requestId == null || requestId.isBlank()) {
+            throw new IllegalArgumentException("requestId cannot be null or empty");
+        }
+
+        if (symbols == null || symbols.isBlank()) {
+            throw new IllegalArgumentException("symbols cannot be null or empty");
+        }
+
+        String[] symbolList = symbols.split(",");
+
+        for (String symbol : symbolList) {
+
+            symbol = symbol.trim();
+
+            if (symbol.isEmpty()) {
+                continue;
+            }
+
+            SecurityDefinitionRequest request =
+                    new SecurityDefinitionRequest();
+
+            // 320 - SecurityReqID
+            request.set(new SecurityReqID(requestId));
+
+            // 559 - SecurityRequestType = 3
+            request.set(new SecurityRequestType(3));
+
+            // 55 - Symbol
+            request.set(new Symbol(symbol));
+
+            session.send(request);
+
+            System.out.println(
+                    "Security Definition Request sent. " +
+                    "SecurityReqID=" + requestId +
+                    ", Symbol=" + symbol);
+        }
+    }
+}
+
+_______
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
