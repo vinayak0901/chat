@@ -1,3 +1,285 @@
+package com.yourpackage.fix;
+
+import quickfix.Message;
+import quickfix.SessionID;
+import quickfix.field.SecurityReqID;
+import quickfix.field.SecurityResponseID;
+import quickfix.field.SecurityResponseType;
+import quickfix.field.NoUnderlyings;
+import quickfix.field.UnderlyingSymbol;
+import quickfix.field.UnderlyingSecurityID;
+import quickfix.field.UnderlyingMaturityDate;
+import quickfix.field.UnderlyingSecurityDesc;
+import quickfix.field.Symbol;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class SecurityDefinitionManager {
+
+    /*
+     * Symbol
+     *    |
+     *    +---- SecurityId -> SecurityDefinitionDetails
+     *    +---- SecurityId -> SecurityDefinitionDetails
+     *
+     * Example:
+     *
+     * EUR/USD
+     *    |
+     *    +---- SEC001 -> details
+     *    +---- SEC002 -> details
+     *
+     * USD/INR
+     *    |
+     *    +---- SEC101 -> details
+     */
+
+    private final Map<String, Map<String, SecurityDefinitionDetails>> securityDefinitions =
+            new ConcurrentHashMap<>();
+
+
+    /**
+     * Processes a Security Definition message received from counterparty.
+     *
+     * @param message received FIX message
+     */
+    public void processSecurityDefinition(Message message) {
+
+        try {
+            String securityReqId = getString(message, SecurityReqID.FIELD);
+            String securityResponseId = getString(message, SecurityResponseID.FIELD);
+            String securityResponseType = getString(message, SecurityResponseType.FIELD);
+
+            int noUnderlyings = getInt(message, NoUnderlyings.FIELD);
+
+            for (int i = 1; i <= noUnderlyings; i++) {
+
+                String symbol = getGroupString(
+                        message,
+                        NoUnderlyings.FIELD,
+                        i,
+                        UnderlyingSymbol.FIELD
+                );
+
+                String securityId = getGroupString(
+                        message,
+                        NoUnderlyings.FIELD,
+                        i,
+                        UnderlyingSecurityID.FIELD
+                );
+
+                String maturityDate = getGroupString(
+                        message,
+                        NoUnderlyings.FIELD,
+                        i,
+                        UnderlyingMaturityDate.FIELD
+                );
+
+                String securityDesc = getGroupString(
+                        message,
+                        NoUnderlyings.FIELD,
+                        i,
+                        UnderlyingSecurityDesc.FIELD
+                );
+
+                SecurityDefinitionDetails details =
+                        new SecurityDefinitionDetails(
+                                securityReqId,
+                                securityResponseId,
+                                securityResponseType,
+                                symbol,
+                                securityId,
+                                maturityDate,
+                                securityDesc
+                        );
+
+                securityDefinitions
+                        .computeIfAbsent(symbol, key -> new ConcurrentHashMap<>())
+                        .put(securityId, details);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Error processing Security Definition message", e
+            );
+        }
+    }
+
+
+    /**
+     * Get security definition using Symbol and Security ID.
+     */
+    public SecurityDefinitionDetails get(
+            String symbol,
+            String securityId) {
+
+        Map<String, SecurityDefinitionDetails> securityMap =
+                securityDefinitions.get(symbol);
+
+        if (securityMap == null) {
+            return null;
+        }
+
+        return securityMap.get(securityId);
+    }
+
+
+    /**
+     * Get all security definitions for a Symbol.
+     */
+    public Map<String, SecurityDefinitionDetails> getBySymbol(
+            String symbol) {
+
+        Map<String, SecurityDefinitionDetails> result =
+                securityDefinitions.get(symbol);
+
+        if (result == null) {
+            return Collections.emptyMap();
+        }
+
+        return Collections.unmodifiableMap(result);
+    }
+
+
+    /**
+     * Get all stored security definitions.
+     */
+    public Map<String, Map<String, SecurityDefinitionDetails>> getAll() {
+
+        return Collections.unmodifiableMap(securityDefinitions);
+    }
+
+
+    /**
+     * Remove all security definitions.
+     */
+    public void clear() {
+        securityDefinitions.clear();
+    }
+
+
+    /**
+     * Remove all definitions for a particular symbol.
+     */
+    public void removeSymbol(String symbol) {
+        securityDefinitions.remove(symbol);
+    }
+
+
+    private String getString(Message message, int field) throws Exception {
+
+        if (!message.isSetField(field)) {
+            return null;
+        }
+
+        return message.getString(field);
+    }
+
+
+    private int getInt(Message message, int field) throws Exception {
+
+        if (!message.isSetField(field)) {
+            return 0;
+        }
+
+        return message.getInt(field);
+    }
+
+
+    private String getGroupString(
+            Message message,
+            int groupTag,
+            int groupIndex,
+            int fieldTag) throws Exception {
+
+        if (!message.hasGroup(groupIndex, groupTag)) {
+            return null;
+        }
+
+        quickfix.Group group =
+                message.getGroup(groupIndex, groupTag);
+
+        if (!group.isSetField(fieldTag)) {
+            return null;
+        }
+
+        return group.getString(fieldTag);
+    }
+
+
+    /**
+     * DTO containing one underlying security definition.
+     */
+    public static class SecurityDefinitionDetails {
+
+        private final String securityReqId;
+        private final String securityResponseId;
+        private final String securityResponseType;
+
+        private final String underlyingSymbol;
+        private final String underlyingSecurityId;
+        private final String underlyingMaturityDate;
+        private final String underlyingSecurityDesc;
+
+
+        public SecurityDefinitionDetails(
+                String securityReqId,
+                String securityResponseId,
+                String securityResponseType,
+                String underlyingSymbol,
+                String underlyingSecurityId,
+                String underlyingMaturityDate,
+                String underlyingSecurityDesc) {
+
+            this.securityReqId = securityReqId;
+            this.securityResponseId = securityResponseId;
+            this.securityResponseType = securityResponseType;
+            this.underlyingSymbol = underlyingSymbol;
+            this.underlyingSecurityId = underlyingSecurityId;
+            this.underlyingMaturityDate = underlyingMaturityDate;
+            this.underlyingSecurityDesc = underlyingSecurityDesc;
+        }
+
+
+        public String getSecurityReqId() {
+            return securityReqId;
+        }
+
+        public String getSecurityResponseId() {
+            return securityResponseId;
+        }
+
+        public String getSecurityResponseType() {
+            return securityResponseType;
+        }
+
+        public String getUnderlyingSymbol() {
+            return underlyingSymbol;
+        }
+
+        public String getUnderlyingSecurityId() {
+            return underlyingSecurityId;
+        }
+
+        public String getUnderlyingMaturityDate() {
+            return underlyingMaturityDate;
+        }
+
+        public String getUnderlyingSecurityDesc() {
+            return underlyingSecurityDesc;
+        }
+    }
+}
+
+___________
+
+
+
 import org.springframework.stereotype.Service;
 import quickfix.Session;
 import quickfix.SessionID;
