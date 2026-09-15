@@ -1,3 +1,57 @@
+This is to clarify that our application does not use any API for connectivity with Counterparty 1 and Counterparty 2.
+Our application is developed using QuickFIX/J and operates over a FIX (Financial Information eXchange) protocol-based socket connection. FIX is a standardized financial messaging protocol used for the electronic exchange of financial market information and trading-related messages between financial institutions and market participants.
+1. FIX Protocol and Connectivity Architecture
+The connectivity is based on a persistent, session-oriented TCP socket connection between our application and the respective counterparties.
+A TCP socket connection is established to initiate the FIX session.
+The FIX session is authenticated and established using the Logon message (35=A).
+Once the session is active, both parties can exchange FIX messages over the same established connection.
+The connection does not need to be re-established for every individual request, response, or market data message.
+FIX session management includes sequence number tracking, message validation, heartbeats, and controlled session termination.
+The application uses QuickFIX/J to manage FIX session handling, message parsing, session-level communication, and message exchange.
+FIX messages contain standard protocol headers, body fields, and a checksum. Each message is identified by a MsgType field (35), which specifies the type and purpose of the message.
+2. Counterparty 1 – Rate Feed and Swap Points
+Our application exchanges rate feed and swap-point-related FIX messages with Counterparty 1 over the established FIX session.
+Administrative Messages:
+MsgType	Message	Technical Purpose
+A	Logon	Establishes and authenticates the FIX session between the initiator and acceptor.
+0	Heartbeat	Maintains session liveness and detects connectivity issues during inactivity.
+3	Reject	Indicates that a received FIX message has been rejected due to a protocol or message-level issue.
+B	News	Transmits informational notifications or operational status updates between counterparties.
+5	Logout	Gracefully terminates the FIX session between the parties.
+Rate Feed Messages:
+MsgType	Message	Technical Purpose
+V	Market Data Request	Requests market data, such as currency pair rates, from the counterparty.
+Y	Market Data Request Reject	Notifies the requester that a market data request has been rejected.
+W	Market Data Snapshot/Full Refresh	Provides market data, including bid and offer rates, as per the agreed FIX implementation.
+Swap Points Messages:
+MsgType	Message	Technical Purpose
+R	Quote Request	Requests swap-point quotations for specified currency pairs, tenors, and settlement dates.
+S	Quote	Returns the requested swap-point quotation, including applicable bid and offer values.
+AG	Quote Status Report	Communicates the status of a quote request or quotation, as defined by the counterparty's FIX implementation.
+Z	Quote Cancel	Communicates the cancellation of a quote, subject to the counterparty's FIX implementation.
+3. Counterparty 2 – Rate Feed Distribution
+Our application establishes a FIX socket session with Counterparty 2 and distributes rate feed data over the active session.
+Administrative Messages:
+MsgType	Message	Technical Purpose
+A	Logon	Establishes and authenticates the FIX session.
+0	Heartbeat	Maintains session liveness and monitors connectivity.
+3	Reject	Communicates rejection of a FIX message due to a protocol or message-level issue.
+B	News	Transmits informational or operational notifications.
+5	Logout	Gracefully terminates the FIX session.
+Rate Feed Messages:
+MsgType	Message	Technical Purpose
+V	Market Data Request	Requests market data as per the agreed FIX session workflow.
+Y	Market Data Request Reject	Notifies the requester that a market data request has been rejected.
+W	Market Data Snapshot/Full Refresh	Transmits market data, including bid and offer rates, to the counterparty.
+4. Technical Summary
+The connectivity between our application and both counterparties is based on FIX protocol-compliant socket communication, implemented using QuickFIX/J.
+This is distinct from conventional API-based communication, such as REST or HTTP request-per-call integration. The application establishes a FIX session over a TCP socket, maintains the session using FIX session-management mechanisms, and exchanges structured FIX messages for rate feed distribution and swap-point quotation activities.
+The exact business semantics of application-level messages, including AG and Z, are governed by the agreed FIX specification and the respective counterparty's implementation.
+Please let us know if any further technical clarification is required.
+
+
+__________
+
 package com.yourpackage.fix;
 
 import quickfix.Message;
