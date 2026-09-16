@@ -1,3 +1,48 @@
+(() => {
+    const iframe = document.getElementById("content-frame");
+
+    if (!iframe) {
+        console.log("❌ iframe #content-frame not found");
+        return;
+    }
+
+    function setup() {
+        const doc = iframe.contentDocument;
+
+        if (!doc) {
+            console.log("❌ Cannot access iframe document");
+            return;
+        }
+
+        function removeReadOnly() {
+            doc.querySelectorAll(".read-only").forEach(el => {
+                el.classList.remove("read-only");
+            });
+        }
+
+        removeReadOnly();
+
+        const observer = new MutationObserver(removeReadOnly);
+
+        observer.observe(doc.documentElement, {
+            subtree: true,
+            childList: true,
+            attributes: true,
+            attributeFilter: ["class"]
+        });
+
+        console.log("✅ Observer running inside #content-frame");
+    }
+
+    if (iframe.contentDocument?.readyState === "complete") {
+        setup();
+    } else {
+        iframe.addEventListener("load", setup);
+    }
+})();
+
+_________
+
 (async () => {
   const canvas = document.createElement("canvas");
   canvas.width = 640;
