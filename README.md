@@ -1,5 +1,25 @@
 const div = document.getElementById('seek');
 
+if (div) {
+    div.classList.remove('read-only');
+
+    new MutationObserver(() => {
+        div.classList.remove('read-only');
+    }).observe(div, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+} else {
+    console.log('Element #seek not found in this frame');
+}
+
+
+_____
+
+
+
+const div = document.getElementById('seek');
+
 const observer = new MutationObserver(() => {
     div.classList.remove('read-only');
 });
