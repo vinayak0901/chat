@@ -1,3 +1,16 @@
+const div = document.getElementById('seek');
+
+const observer = new MutationObserver(() => {
+    div.classList.remove('read-only');
+});
+
+observer.observe(div, {
+    attributes: true,
+    attributeFilter: ['class']
+});
+
+_______
+
 This is to clarify that our application does not use any API for connectivity with Counterparty 1 and Counterparty 2.
 Our application is developed using QuickFIX/J and operates over a FIX (Financial Information eXchange) protocol-based socket connection. FIX is a standardized financial messaging protocol used for the electronic exchange of financial market information and trading-related messages between financial institutions and market participants.
 1. FIX Protocol and Connectivity Architecture
