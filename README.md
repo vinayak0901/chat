@@ -1,3 +1,36 @@
+(async () => {
+  const canvas = document.createElement("canvas");
+  canvas.width = 640;
+  canvas.height = 480;
+
+  const ctx = canvas.getContext("2d");
+
+  function draw() {
+    ctx.fillStyle = "#222";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "32px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("TEST CAMERA", 320, 220);
+    ctx.font = "20px Arial";
+    ctx.fillText(new Date().toLocaleTimeString(), 320, 270);
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  const stream = canvas.captureStream(30);
+
+  navigator.mediaDevices.getUserMedia = async () => stream;
+
+  console.log("Fake camera stream installed:", stream);
+})();
+
+
+________
+
 const div = document.getElementById('seek');
 
 if (div) {
