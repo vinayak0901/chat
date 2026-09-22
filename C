@@ -1,0 +1,348 @@
+FAQs on Priority Sector Lending (PSL) 
+(Updated as on January 22, 2026) 
+Sr. 
+No. 
+FAQ 
+A. Classification of loans 
+1. 
+Query 1: Whether the loans that are not classified as PSL on April 1, 2025 can be classified as PSL based on the revised parameters. 
+Clarification: Priority Sector Lending (PSL) eligibility of loans outstanding as on April 1, 2025 shall be determined with reference to the 
+provisions of the Master Directions on Priority Sector Lending 2025 
+B. Computation of Adjusted Net Bank Credit (ANBC) 
+2. 
+Query 2: How to adjust PSLC buy/PSLC sale in the computation of ANBC? 
+Clarification: The net PSLC outstanding (PSLC Buy minus(-) PSLC Sell) is added to the Net Bank Credit, as mentioned in para 6 of 
+the Master Directions on Priority Sector Lending, 2025 (updated from time to time). Further, a PSLC remains outstanding until its expiry 
+(s. no. ix of Annex to circular on Priority Sector Lending certificates dated April 07, 2016). All PSLCs will expire by March 31st and will 
+not be valid beyond the reporting date (i.e. March 31st), irrespective of the date it was first bought/sold. Accordingly, the effect of PSLC 
+buy is increase in ANBC and conversely the effect of PSLC sell is decrease in ANBC and the net of PSLC buy/sell is adjusted to the 
+ANBC for every quarter. Thus, PSLCs bought or sold in any quarter of a FY will have to be taken into account in all subsequent quarters 
+till the end of that FY. 
+3. 
+Query 3: Whether the deposits with DFIs viz., NABARD, SIDBI, MUDRA & NHB on account of PSL shortfall can be counted towards 
+achievement of PSL target/ sub-targets and ANBC? 
+1 
+Sr. 
+No. 
+FAQ 
+Clarification: (i) Outstanding deposits with NABARD made on account of PSL shortfall are eligible to be reckoned towards Agriculture 
+sub-target and count for the achievement of overall PSL target as well.  
+(ii) Outstanding deposits with SIDBI and MUDRA are eligible to be reckoned under MSME lending and count for the achievement of the 
+overall PSL target. 
+(iii) Outstanding deposits with NHB are eligible to be reckoned under Housing and count for the achievement of overall PSL target. 
+(iv) All outstanding deposits as above shall be added to Net Bank Credit (NBC) for the computation of ANBC. 
+4. 
+Query 4: In terms of paragraph 3 of the circulars DBOD.No.Ret.BC.36/12.01.001/2013-14 dated August 14, 2013, and 
+DBOD.No.Ret.BC.93/12.01.001/2013-14 dated January 31, 2014 banks were advised that advances extended in India against the 
+incremental FCNR (B) / NRE deposits, qualifying for exemption from CRR / SLR requirements under the above circular, will be excluded 
+from the Adjusted Net Bank Credit (ANBC) for computation of priority sector lending targets, till their repayment. What is the method of 
+arriving at the extent of such advances? 
+(iii) In case, the difference in the amount of outstanding advances between March 7, 2014 and base date is zero or negative, no amount 
+would be eligible for deduction from ANBC for the purpose of arriving at the priority sector lending targets. 
+Clarification: (i) In terms of the circulars mentioned above, the amount eligible for exclusion from ANBC is the incremental advances 
+extended out of the resources generated from the eligible incremental FCNR (B) / NRE deposits. The incremental advance is calculated 
+as the difference between outstanding advances in India as on March 7, 2014 and the Base Date (July 26, 2013).  
+(ii) The amount to be excluded from ANBC for computation of priority sector targets will not exceed incremental FCNR (B) / NRE deposits 
+eligible for exemption from maintenance of CRR / SLR in terms of the circulars mentioned above. 
+2 
+3 
+ 
+Sr. 
+No. FAQ 
+5. Query 5: Are banks permitted to exclude bills purchased/discounted/negotiated (payment to beneficiary not under reserve) while 
+calculating the ‘Bank Credit in India’? 
+ 
+Clarification: The bills purchased/ discounted/ negotiated (payment to beneficiary not under reserve) under LC is allowed to be treated 
+as interbank exposure only for the limited purpose of computing exposure and capital requirements. It should not be excluded from the 
+computation of ‘bank credit in India’ [As prescribed in item No.VI of Form 'A’ under Section 42(2) of the RBI Act, 1934] which allows for 
+exclusion of interbank advance. While exposure may be to the LC issuing bank, the bills purchased/discounted amount to bank credit to 
+its borrower constituent. If this advance is eligible for priority sector classification, the bank can classify it as PSL. Banks have to take 
+note of the above aspect while reporting Net Bank Credit in India as well as while computing the Adjusted Net Bank Credit for PSL targets 
+and achievement. 
+ C. Adjustment for Weights in PSL Achievement 
+6. Query 6: Will the weights be applicable in case of decline in credit or negative incremental credit? 
+ 
+Clarification: If there is a decline in credit, the weighted incremental credit will be zero (0). The methodology as given below will be 
+considered for all the districts for which data is reported in ADEPT and District-QPSA statement. Further, based on the methodology 
+detailed below, banks are expected to monitor their own PSL achievement during the year taking into account the prescription of 
+differential weights for credit in identified districts, for the purpose of trading in PSLCs. 
+4 
+ 
+Sr. 
+No. FAQ 
+ 
+7. Query 7: What is the criteria for mapping credit to a particular district? 
+ 
+Clarification: For mapping a credit facility to a particular district, the ‘place of utilization of credit’ shall be the qualifying criteria. 
+8. Query 8: In case of achieving priority sector targets through indirect routes viz. PSLCs, IBPCs, On-lending, Securitization, Assignment 
+etc., the place of utilization may not be available for mapping the individual account level data. How will the incremental credit be 
+calculated in such case? 
+ 
+Clarification: While calculating district-wise incremental credit for assigning weights, the organic credit i.e. only the credit directly 
+disbursed by banks and for which the actual borrower/beneficiary wise details are maintained in the books of the bank, will be considered. 
+Credit disbursed through the following inorganic routes shall not be considered for incremental weights: 
+5 
+ 
+Sr. 
+No. FAQ 
+i. Investments by banks in securitised assets 
+ii. Transfer of Assets through Direct Assignment/Outright purchase 
+iii. Inter Bank Participation Certificates (IBPCs) 
+iv. Priority Sector Lending Certificates (PSLCs) 
+v. Bank loans to MFIs (NBFC-MFIs, Societies, Trusts, etc.) for on-lending 
+vi. Bank loans to NBFCs for on-lending 
+vii. Bank loans to HFCs for on-lending 
+ D. Agriculture 
+9. Query 9: Can bank loans against gold be classified under priority sector? 
+ 
+Clarification: The PSL guidelines are activity and beneficiary specific and are not based on type of collateral. Therefore, bank loans 
+given to individuals/ businesses for undertaking agriculture activities do not automatically become ineligible for priority sector 
+classification, only on account of the fact that underlying asset is gold jewellery/ornament etc. It may, however, be noted that as per FIDD 
+Circular dated December 6, 2024, it has been advised that banks may waive collateral security and margin requirements for agricultural 
+loans upto ₹2 lakh. Therefore, bank should have extended the loan based on scale of finance and assessment of credit requirement for 
+undertaking the agriculture activity and not solely based on available collateral in the form of gold. Further, as applicable to all loans 
+under PSL, banks should put in place proper internal controls and systems to ensure that the loans extended under PSL are for approved 
+purposes and the end use is continuously monitored. 
+10. Query 10: What due diligence should banks ensure while classifying loans under PSL- Agriculture/SMF? 
+ 
+6 
+ 
+Sr. 
+No. FAQ 
+Clarification: Banks should ensure proper documentation for classifying agricultural loans under PSL as approved by their Board. 
+Particularly while classifying loans under agriculture/SMF category, banks should maintain details regarding the location of the land for 
+cultivation, details of crop grown, hypothecation of crops, if any; sanction of loan based on scale of finance, record of field visit by bank 
+officials to monitor end use of agricultural loans, etc. Some of the above aspects should be available with the bank in the absence of 
+copy of land record/lease deed particularly in case of agriculture loans to landless labourers, sharecroppers etc. 
+11. Query 11: How should the banks ensure adherence to the credit cap of ₹100 crore from the banking system, while extending credit to 
+activities under ‘Agriculture Infrastructure’ or ‘Food & Agro-Processing’ categories? 
+ 
+Clarification: As per extant guidelines, loans for Agriculture Infrastructure or loans for Food & Agro-processing activity are each subject 
+to an aggregate sanctioned limit of ₹100 crore per borrower from the banking system. In case aggregate exposure across the banking 
+industry exceeds the limit of ₹100 crore, then total exposure will cease to be classified under PSL category. The sanctioned limit of ₹100 
+crore has to be ascertained facility-wise for a particular entity and is exclusive of the other borrowings of the entity for PSL / non-PSL 
+purposes. However, it needs to be ensured that the bank has assessed and sanctioned separate limits for the specific purpose of 
+Agriculture Infrastructure or Food & Agro Processing activities of the entity, for the loans to qualify as PSL. Banks should take a declaration 
+from the borrower regarding loan/s sanctioned by any other bank/s for the same activity and also independently seek confirmation from 
+those banks. In the scenario, where new sanction by the bank leads to overall limit across banks exceeding ₹100 crore, it will have to 
+inform other banks about the same. Accordingly, all other banks will have to declassify the same from PSL. 
+12. Query 12: Loans are extended to cargo companies, shipping companies, roadlines co., transport cos, logistic cos., movers and carriers 
+etc. for purchasing commercial vehicles. These transport and shipping companies act as carriers (‘transporter’) for enterprises which are 
+engaged in food and agro processing business. Are bank loans to such transporters who act as ‘carriers’ and do not engage in any food 
+and agro processing activities themselves, eligible for classification under priority sector? 
+7 
+ 
+Sr. 
+No. FAQ 
+Clarification: As per Annex-III of Master Directions on Priority Sector Lending, 2025 transportation is an eligible activity under indicative 
+list of permissible activities under Food Processing Sector. However, while classifying any facility to transporters for purchasing 
+commercial vehicles under “Food & Agro-processing” category, it needs to be ensured that the vehicles are used exclusively for 
+transportation of food and agro-processed products or are types of vehicles specifically used for “Food & Agro-processing” e.g. cold 
+storage trucks, vans etc. If the commercial vehicle is also used for transportation of products other than those related to food & agro 
+processing, the facility shall not be eligible for classification under ‘Food & Agro-processing’ category. Such loans may, however, be 
+classified under MSME, if the borrower is eligible for classification as MSME in terms of definition given in the Master Direction – Lending 
+to Micro, Small & Medium Enterprises (MSME) Sector dated July 24, 2017 (as updated from time to time) 
+13. Query 13: Are bank loans extended to companies for buying commercial vehicles eligible for classification under “Agriculture 
+Infrastructure” category of PSL? 
+ 
+Clarification: While classifying any facility to transporters for purchasing commercial vehicles under “Agriculture Infrastructure” category, 
+it needs to be ensured that the vehicle is used exclusively for activities that are ancillary to “Agriculture Infrastructure”. If the commercial 
+vehicle is also used for other purposes, the facility shall not be eligible for classification under ‘Agriculture Infrastructure’. Such loans may, 
+however, be classified under MSME, if the borrower is eligible for classification as MSME as per the definition given in the Master Direction – Lending to Micro, Small & Medium Enterprises (MSME) Sector dated July 24, 2017 (as updated from time to time) 
+ E. Education 
+14. Query 14: Under the revised PSL guidelines, sanctioned limit has been capped at ₹25 lakhs. If a customer is sanctioned a loan of ₹25 
+lakhs and the outstanding amount exceeds ₹25 lakhs (say ₹28 Lakhs), in such a scenario whether the entire outstanding will be reckoned 
+for PSL? 
+ 
+Sr. 
+No. 
+FAQ 
+Clarification: The outstanding value may exceed ₹25 lakh on account of accrued interest due to moratorium on repayment during the 
+study period. Accordingly, the entire outstanding amount shall be reckoned for priority sector provided the sanctioned limit does not 
+exceed ₹25 lakh. 
+F. Housing 
+15. Query 15: If housing loans are extended to banks’ own employees on commercial terms applicable to other customers, are they eligible 
+for classification under priority sector lending? 
+Clarification: Housing loans to banks’ own employees are not eligible for classification under priority sector lending, irrespective of 
+whether they are extended on commercial terms or at subsidised rates. 
+G. Social Infrastructure 
+16. Query 16: How is PSL classification considered for lending to Social Infrastructure activities viz. schools etc. (prescribed limit of ₹8 crore) 
+and health care facilities (prescribed limit of ₹12 crore), where such facilities are also eligible to be classified under MSME as per the 
+PSL guidelines. 
+Clarification: Bank loans for above purposes can be classified under MSME, wherein no cap on credit has been prescribed. However, 
+banks can classify such activities either under MSME or Social Infrastructure, and not both. It may be noted that for classification under 
+Social Infrastructure, the associated cap on credit shall be applicable. 
+H. Weaker Sections 
+17. Query 17: Are all credit facilities extended to the thirteen borrower categories under ‘Weaker Sections’ eligible to be classified under 
+‘Weaker Sections’ category? 
+8 
+9 
+ 
+Sr. 
+No. FAQ 
+Clarification: For classification under ‘Weaker Sections’, the loans should first be eligible for classification under any of the eight PSL 
+categories as per underlying activity. 
+18. Query 18: In case of partnership firms/ private limited companies, can the loan granted be tagged as SMF and Weaker Section, if any 
+of the partner/director is holding Agriculture land upto 2 hectares. 
+ 
+Clarification: As per extant guidelines, SMF includes individuals, SHGs, JLGs, Farmers’ Producer Companies (FPC) and Co-operatives 
+of farmers with the accompanying criteria of membership by number and land-holding. Therefore, loans to partnership firms/co-borrowers 
+or any director of a company holding agriculture land upto 2 hectares are not eligible to be classified under the SMF category of PSL. 
+19. Query 19: In case of a partnership firm, if majority of the partners belong to one or the other of the specified minority communities, can 
+the advances granted to the firm be treated as advances granted to minority communities. Further, in case of a private/public limited 
+company, if any of the directors belong to Minority Community, can the loan be classified under weaker section category? 
+ 
+Clarification: As per extant guidelines, priority sector loans are eligible for classification as loans to minority communities as per the list 
+notified by the GoI from time to time. The same may be read with Master Circular- Credit Facilities to Minority Communities which at para 
+2.2 states “In the case of a partnership firm, if the majority of the partners belong to one or the other of the specified minority communities, 
+advances granted to such partnership firms may be treated as advances granted to minority communities. Further, if the majority 
+beneficial ownership in a partnership firm belongs to the minority community, then such lending can be classified as advances to the 
+specified communities. A company has a separate legal entity and hence advances granted to it cannot be classified as advances to the 
+specified minority communities” 
+20. Query 20: Can banks rely on customer’s declaration for Minority/SC/ST category to be included under Weaker section? 
+ 
+Sr. 
+No. 
+FAQ 
+Clarification: Declaration by the customer in the application form would suffice for classifying credit facilities to Minorities/SCs/STs under 
+Weaker Sections. However, it needs to be ensured that, the loans should first be eligible for classification under priority sector lending as 
+per underlying activity. 
+I. Investment by Banks in securitized assets / Transfer of Assets through Direct Assignment/ Outright Purchase 
+21. Query 21: How should banks ensure due diligence to ascertain priority sector status of PTC portfolio? 
+Clarification: Banks may rely on a combination of auditors’ certification provided by the originating entity and conduct of sample check 
+by their own staff or by an auditor for the purpose. This may be suitably built into their internal policy. 
+J. PSLCs 
+22. Query 22: How can banks register for PSLC trading? 
+Clarification: The banks are required to submit a request to Financial Inclusion and Development Department, Central Office, RBI at 
+fiddpsd@rbi.org.in to obtain registration for PSLC trading by submitting a) DEA Fund Code b) Customer identification number and c) RBI 
+Current Account number. 
+23. Query 23: Can PSLCs be issued for a limited period i.e., for one reporting quarter and multiples thereof? 
+Clarification: The duration of the PSLCs will depend on the date of issue. All PSLCs will be valid till the end of the FY i.e. March 31st 
+and expire on the next day i.e. April 1st. 
+24. Query 24: What are the transaction charges/fees for usage of PSLC module on e-Kuber portal? What are the tax implications of PSLC 
+trading? 
+10 
+Sr. 
+No. 
+FAQ 
+Clarification: As per the extant guidelines, no transaction charges/fees are applicable for usage of the PSLC module on e-Kuber portal. 
+The tax implications on account of trading in PSLCs may be determined by the banks in accordance with the applicable tax laws. 
+25. Query 25: Does Export Credit form a part of PSLC-General and can banks’ surplus in Export Credit be sold as PSLC-General? 
+Clarification: 'Export Credit' can form a part of underlying assets against the PSLC - General. However, any bank issuing PSLC-General 
+against 'Export Credit' shall ensure that the underlying 'Export Credit' portfolio is eligible for priority sector classification as per the criteria 
+set for domestic banks. 
+26. Query 26: Are Foreign Banks with less than 20 branches permitted to buy PSLC-General for achieving the target of 8% of lending to 
+‘other than exports’? 
+Clarification: Foreign banks with less than 20 branches are not allowed to buy PSLC General for achieving their 8% target of lending to 
+sectors other than exports. However, such banks are allowed to buy PSLC Agriculture, PSLC Micro Enterprises and PSLC Small and 
+Marginal Farmer for the same. 
+27. Query 27: Will the net PSLC position only be reckoned for ascertaining the underlying asset? 
+Clarification: A bank can purchase PSLCs as per its requirements. Further, a bank is permitted to issue PSLCs upto 50 percent of 
+previous year’s PSL achievement without having the underlying in its books. This is applicable category-wise. The net position of PSLCs 
+(PSLC Buy – PSLC Sell) has to be considered while reporting the quarterly and annual priority sector returns. However, with regard to 
+ascertaining the underlying assets, as on March 31st, the bank must have met the priority sector target by way of the sum of outstanding 
+priority sector portfolio and net of PSLCs issued and purchased. 
+28. Query 28: What happens if the RBI inspection team, at a later date, de-classifies the underlying assets which had already been traded 
+by the bank as PSLC, from eligibility for PSL classification? 
+11 
+Sr. 
+No. 
+FAQ 
+Clarification: The misclassifications, if any, will have to be reduced from the achievement of PSLC seller bank only. There will be no risk 
+for the PSLC buyer, even if the underlying asset of the traded PSLC gets misclassified. 
+29. Query 29: Is the premium payment to be done through the e-Kuber portal or a separate RTGS transaction? 
+Clarification: There will be a real time settlement of the matched premium. Accordingly, the respective current accounts of the 
+participating banks with RBI will be debited/ credited to the extent of the matched premium. 
+30. Query 30: How does the PLSC order matching take place in the e-Kuber portal? 
+Clarification: The trading platform will match the buy and sell offer by following the Rule of Lowest Sale offer to the Buy offer and then 
+within that on FIFO basis. For example, a buyer offered to pay 2% premium for a particular PSLC type and the same is available at 1.5%, 
+1.8% and 2%, the portal will first match with the sale deal at 1.5% and for any leftover units, it will then match with the sale offers of 1.8% 
+and then 2% in that order, provided the buy offer is first in the queue (based on the timing of the placement of the buy offer). 
+31. Query 31: Will there be automatic matching of PSLC trades on the e-Kuber portal or can the buyer/seller select the counterparty? Will 
+partial matching also happen? 
+Clarification: The order matching will be done on anonymous basis through the portal and the buyer/seller cannot select the 
+counterparty. Partial matching will happen depending on the matching of premium and availability of category-wise PSLC lots for sale 
+and purchase. 
+32. Query 32: What are the timings of PSLC market in the e-Kuber portal? 
+12 
+Sr. 
+No. 
+FAQ 
+Clarification: The normal trading hours shall be from 10 AM to 4:30 PM. The PSLC market operates on all days except Saturdays, 
+Sundays and holidays declared under The Negotiable Instruments Act, 1881 by the Government of Maharashtra. 
+K. On-lending under Priority Sector 
+33. Query 33: What is the methodology to be followed by a bank for PSL classification of lending to eligible entities for on-lending to priority 
+sector? 
+Clarification: Paras 22, 23 and 24 of the Master Directions on Priority Sector Lending, 2025 permit banks to classify as PSL their lending 
+to NBFCs including HFCs and NBFC-MFIs and other MFIs (Societies, Trusts etc.) which are members of RBI recognised SRO for the 
+sector, for on-lending to eligible priority sectors. Banks may adopt a uniform methodology for PSL classification of on-lending as follows: 
+a) Classification under PSL: 
+• The banks may devise internal control mechanisms to ensure that the portfolio under on-lending is PSL compliant. The following 
+information/record, at the very minimum, should be collected by the bank from the eligible entities: 
+• The banks can classify on-lending to eligible entities in the respective categories of PSL. The classification will be allowed only when 
+the entity has disbursed the Priority Sector Loans to the ultimate beneficiary after receiving the funds from the bank and the funds remain 
+deployed in PSL assets. 
+• The entities must provide auditors’ certificate to the banks stating that the individual loans of the portfolio, against which on-lending 
+benefit is being claimed, are not being used to claim benefit from any other bank(s). Also, they must put in place a suitable process to 
+flag such loan(s) in their systems to enable internal/statutory auditors as well as RBI supervisors (in case of NBFCs) to verify the same. 
+b) Information sharing: 
+13 
+14 
+ 
+Sr. 
+No. FAQ 
+name of the beneficiary, amount sanctioned, loan amount outstanding, loan tenure, disbursement date, category of PSL. 
+34. Query 34: What is the cap for bank lending to NBFCs and HFCs for on-lending? 
+ 
+Clarification: Bank lending to NBFCs (other than MFIs) and HFCs is subject to a cap of 5% of average PSL achievement of the four 
+quarters of the previous financial year. In case of a new bank the cap shall be applicable on an on-going basis during its first year of 
+operations. The prescribed cap is not applicable for bank lending to NBFC-MFIs and other MFIs (Societies, Trusts, etc.) which are 
+members of RBI recognised ‘Self-Regulatory Organisation’ of the sector. Bank lending to such MFIs can be classified under different 
+categories of PSL in accordance with conditions specified in the Master Directions on Priority Sector Lending, 2025. 
+ L. Co-lending by Banks & NBFCs 
+35. Query 35: Does co-lending arrangement allow NBFCs to retain 100% of the risk? 
+ 
+Clarification: While the guidelines allow sharing of risks and rewards between the bank and the NBFC for ensuring appropriate alignment 
+of respective business objectives, the priority sector assets on the bank’s books should at all times be without recourse to the NBFC. 
+36. Query 36: Are direct assignment of assets applicable only where bank can exercise its discretion? 
+ 
+Clarification: Only if the bank can exercise its discretion regarding taking into its books the loans originated by NBFC as per the 
+agreement, the arrangement will be akin to a direct assignment transaction. If the Agreement entails a prior, irrevocable commitment on 
+the part of the bank to take into its books its share of the individual loans as originated by the NBFC, it shall not be akin to direct 
+assignment transaction. 
+37. Query 37: Does the term "mandatorily" in the CLM guidelines mean that the bank must take all the loans originated by the NBFC or can 
+a cap be affixed on the number and amount in the Master Agreement? 
+15 
+ 
+Sr. 
+No. FAQ 
+ 
+Clarification: Both entities, the bank and the NBFC, shall be guided by the bilateral Master Agreement entered by them for implementing 
+the Co-lending Model (CLM). The agreement may specify any cap on the number and amount of loans that can be originated by the 
+NBFC under the Co-lending model. 
+38. Query 38: What will be the fate of loans originated by NBFC, which do not qualify under due diligence checks to comply with RBI 
+regulations on KYC and Outsourcing of activities. 
+ 
+Clarification: If the Master Agreement entails a prior, irrevocable commitment on the part of the bank, it has been advised that the partner 
+bank and NBFC shall have to put in place suitable mechanisms for ex-ante due diligence by the bank. Such due diligence should ensure 
+compliance with RBI regulations on KYC and outsourcing of activities before disbursal of the loans by the NBFC. 
+39. Query 39: Does the term back-to-back mean loan accounts will first be opened by NBFC and thereafter bank will open loan accounts in 
+its books or both will open loan accounts and fund them simultaneously based on the loan agreement signed by the borrower with the 
+NBFC. 
+ 
+Clarification: Back-to-back basis implies that the loans will be first opened by NBFC and then bank will open loan accounts subsequently. 
+40. Query 40: Based on the loan documents executed, will the NBFC sanction and disburse the whole amount and thereafter approach the 
+bank for reimbursement or will it sanction/ disburse its part of the loan and then approach the bank to sanction/ disburse its part. 
+ 
+Clarification: The bank and the NBFC can decide on this aspect as per the Master agreement between them. 
+ M. Shortfall calculation 
+Sr. 
+No. 
+FAQ 
+41. Query 41: Is the shortfall in achievement of PSL targets for the year calculated based on the PSL loans outstanding as on March 31st of 
+the financial year? 
+Clarification: The shortfall/excess in achievement is calculated for each quarter of the financial year. The shortfall/ excess for the year 
+is arrived at by taking a simple average of the shortfall/excess for all the four quarters.  
+In case of shortfall in achievement of overall PSL target or any of the prescribed sub-targets, the bank will be required to contribute to 
+specified funds maintained with NABARD/SIDBI/MUDRA/NHB. 
+16 
