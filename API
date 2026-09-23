@@ -1,3 +1,16 @@
+@PostMapping("/positionDashboard")
+public ResponseEntity<byte[]> positionDashboard(@RequestBody RequestDto request) throws Exception {
+
+    Object response = service.getPositionDashboard(request);
+
+    byte[] bytes = objectMapper.writeValueAsBytes(response);
+
+    return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .contentLength(bytes.length)
+            .body(bytes);
+}
+
 curl --location --request POST "http://ip:port/FxsIdeaForexServices/api/positionDashboard" --header "Content-Type: application/json" --data "{\"date\":\"2026-07-14\"}" -w "\nTTFB: %{time_starttransfer}s\nTotal: %{time_total}s\n"
 
 curl --location --request POST "http://10.30.130.160:9094/FxsIdeaForexServices/api/positionDashboard" --header "Content-Type: application/json" --data-raw "{\"date\":\"2026-07-14\"}"
