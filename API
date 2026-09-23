@@ -1,0 +1,1 @@
+curl --location --request POST "http://10.30.130.160:9094/FxsIdeaForexServices/api/positionDashboard" --header "Content-Type: application/json" --data-raw "{\"date\":\"2026-07-14\"}"
